@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use AllowDynamicProperties;
 use App\Models\Stock;
 use App\Models\StockPrice;
 use Illuminate\Console\Command;
@@ -49,7 +48,6 @@ class FetchStockPrices extends Command
             ]);
 
             $data = json_decode($response->body(), true);
-
 
             if (isset($data['Time Series (INTRADAY)'])) {
                 return $data['Time Series (INTRADAY)'];
