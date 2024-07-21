@@ -34,6 +34,8 @@ class FetchStockPrices extends Command
             $this->cacheStockPrice($stock, $data);
         }
 
+        Cache::forget('all_stock_reports');
+
         $this->info('Stock prices fetched successfully.');
     }
 
