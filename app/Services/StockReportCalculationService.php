@@ -9,13 +9,12 @@ class StockReportCalculationService
 {
     public function calculateStocks()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::with(['prices' => function ($query) {
+            $query->orderByDesc('created_at')->take(2);
+        }])->get();
 
         return $stocks->map(function ($stock) {
-            $stocksDetails = StockPrice::where('stock_id', $stock->id)
-                ->orderByDesc('created_at')
-                ->take(2)
-                ->get();
+            $stocksDetails = $stock->prices->take(2);
 
             if ($stocksDetails->count() == 2) {
                 $priceCurrent = $stocksDetails->first()->price;
