@@ -28,13 +28,17 @@ class StockReportControllerTest extends TestCase
         $response = $this->getJson('/api/get-stocks-report');
 
         $response->assertStatus(200)
-            ->assertJson([[
-                'symbol' => 'AAPL',
-                'name' => 'Apple Inc.',
-                'price' => 'N/A',
-                'percentage_change' => 'N/A',
-                'timestamp' => 'N/A',
-            ]]);
+            ->assertJson([
+                'data' => [
+                    [
+                        'symbol' => 'AAPL',
+                        'name' => 'Apple Inc.',
+                        'price' => 'N/A',
+                        'percentage_change' => 'N/A',
+                        'timestamp' => 'N/A',
+                    ]
+                ]
+            ]);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -44,15 +48,18 @@ class StockReportControllerTest extends TestCase
         $stockPrice = StockPrice::factory()->create(['stock_id' => $stock->id, 'price' => 150]);
 
         $response = $this->getJson('/api/get-stocks-report');
-
         $response->assertStatus(200)
-            ->assertJson([[
-                'symbol' => 'AAPL',
-                'name' => 'Apple Inc.',
-                'price' => '150.00',
-                'percentage_change' => 'N/A',
-                'timestamp' => $stockPrice->created_at->toISOString(),
-            ]]);
+            ->assertJson([
+                'data' => [
+                    [
+                        'symbol' => 'AAPL',
+                        'name' => 'Apple Inc.',
+                        'price' => '150.00',
+                        'percentage_change' => 'N/A',
+                        'timestamp' => $stockPrice->created_at->toISOString(),
+                    ]
+                ]
+            ]);
     }
 
 
@@ -66,12 +73,16 @@ class StockReportControllerTest extends TestCase
         $response = $this->getJson('/api/get-stocks-report');
 
         $response->assertStatus(200)
-            ->assertJson([[
-                'symbol' => 'AAPL',
-                'name' => 'Apple Inc.',
-                'price' => 110,
-                'percentage_change' => 10.0,
-                'timestamp' => $stockPrice->created_at->toISOString(),
-            ]]);
+            ->assertJson([
+                'data' => [
+                    [
+                        'symbol' => 'AAPL',
+                        'name' => 'Apple Inc.',
+                        'price' => '110.00',
+                        'percentage_change' => 10.0,
+                        'timestamp' => $stockPrice->created_at->toISOString(),
+                    ]
+                ]
+            ]);
     }
 }
