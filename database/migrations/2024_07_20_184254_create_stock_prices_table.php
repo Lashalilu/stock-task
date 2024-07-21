@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('stock_id')->constrained();
             $table->decimal('price', 8, 2);
-            $table->timestamp('timestamp');
             $table->timestamps();
         });
     }
