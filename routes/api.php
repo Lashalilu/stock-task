@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\StockReportController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
